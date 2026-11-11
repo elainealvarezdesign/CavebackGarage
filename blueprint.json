@@ -1,0 +1,31 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"meta": {
+		"title": "Caveback Garage Co. — one-page prototype (dark theme)",
+		"author": "elainealvarezdesign"
+	},
+	"landingPage": "/",
+	"preferredVersions": { "php": "8.3", "wp": "latest" },
+	"features": { "networking": true },
+	"steps": [
+		{
+			"step": "installTheme",
+			"themeData": { "resource": "wordpress.org/themes", "slug": "home-services-blocks" },
+			"options": { "activate": false }
+		},
+		{
+			"step": "installTheme",
+			"themeData": {
+				"resource": "git:directory",
+				"url": "https://github.com/elainealvarezdesign/CavebackGarage",
+				"ref": "main",
+				"path": "caveback"
+			},
+			"options": { "activate": true, "targetFolderName": "caveback" }
+		},
+		{
+			"step": "setSiteOptions",
+			"options": { "blogname": "Caveback Garage Co.", "blogdescription": "Get your garage back." }
+		}
+	]
+}
