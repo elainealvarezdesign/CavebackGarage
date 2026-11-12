@@ -66,6 +66,12 @@ NETLIFY_FORMS = """
 """
 html = html.replace('</head>', "<script>window.CAVEBACK_FORMS = 'netlify';</script>\n</head>", 1)
 html = html.replace('</body>', NETLIFY_FORMS + '</body>', 1)
+
+# A minimal page with the same forms: Netlify's form detection reads it reliably.
+with open(os.path.join(OUT, 'forms.html'), 'w') as f:
+    f.write('<!doctype html>\n<html lang="en"><head><meta charset="utf-8">'
+            '<meta name="robots" content="noindex"><title>Caveback forms</title></head>\n<body>'
+            + NETLIFY_FORMS.replace(' hidden>', '>') + '</body></html>\n')
 with open(os.path.join(OUT, 'index.html'), 'w') as f:
     f.write(html)
 print('files', len(seen))
