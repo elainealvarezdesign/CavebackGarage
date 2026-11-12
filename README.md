@@ -11,6 +11,15 @@ Playground runs a full WordPress site in the browser: no hosting, no login neede
 It installs Home Services Blocks from WordPress.org, installs the `caveback` theme from
 this repo and opens the home page. Nothing is saved between visits.
 
+## Netlify (static copy)
+
+Netlify can't run WordPress (PHP), so `site/` holds a static export of the front page as
+WordPress renders it with the `caveback` theme. `netlify.toml` publishes `site/` with no
+build step and marks the prototype `noindex`.
+
+To refresh it after changing the theme: run WordPress locally with the theme active on
+`http://localhost:8899`, then `python3 tools/export-static.py site` and commit.
+
 ## What's in the repo
 
 | Path | Contains |
@@ -22,6 +31,9 @@ this repo and opens the home page. Nothing is saved between visits.
 | `caveback/patterns/` | One block pattern per section: header, hero, why-caveback, services, how-it-works, our-work, catalog, who-we-help, quote, faq, footer |
 | `caveback/templates/front-page.html` | The one-page layout (stacks the patterns) |
 | `caveback/assets/js/caveback.js` | Sliders, before/after, "Add to quote" selection, 2-step quote form |
+| `site/` | Static export of the front page, published by Netlify |
+| `netlify.toml` | Netlify settings: publish `site/`, no build |
+| `tools/export-static.py` | Regenerates `site/` from a local WordPress |
 
 ## Install on a real WordPress site
 
