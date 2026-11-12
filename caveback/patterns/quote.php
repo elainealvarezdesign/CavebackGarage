@@ -104,7 +104,7 @@ $caveback_chips = array(
 <div class="cb-done" data-cb-quote-done role="status" tabindex="-1" hidden>
 <span class="cb-done__icon"><?php echo caveback_icon( 'check' ); ?></span>
 <h3>Thanks! Your request is in.</h3>
-<p>We’ll reply within [1 business day] using your preferred contact method. A confirmation is on its way to your inbox.</p>
+<p>We’ll reply within [1 business day] using your preferred contact method.</p>
 <p>While you wait, browse the <a href="#catalog">storage catalog</a> to see the options we install.</p>
 <button class="cb-btn cb-btn--ghost" type="button" data-cb-again>Send another request</button>
 </div>
