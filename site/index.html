@@ -106,6 +106,7 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 {"imports":{"@wordpress/interactivity":"/wp-includes/js/dist/script-modules/interactivity/index.min.js?ver=6a43cba92ed701f32cd9"}}
 </script>
 <link rel="modulepreload" href="/wp-includes/js/dist/script-modules/interactivity/index.min.js?ver=6a43cba92ed701f32cd9" id="@wordpress/interactivity-js-modulepreload" fetchpriority="low">
+<script>window.CAVEBACK_FORMS = 'netlify';</script>
 </head>
 
 <body class="home blog wp-embed-responsive wp-theme-home-services-blocks wp-child-theme-caveback">
@@ -472,10 +473,12 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 </ul>
 <form class="cb-form" data-cb-catalog novalidate>
 <div><label class="cb-label" for="cb-cat-email">Email address</label>
-<div class="cb-inline-form"><input class="cb-field" id="cb-cat-email" type="email" required autocomplete="email" placeholder="you@example.com"><button class="cb-btn cb-btn--dark" type="submit"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download the catalog</button></div></div>
-<p class="cb-small">Free PDF, instant download. We’ll email you a copy too. No spam, unsubscribe anytime.</p>
+<div class="cb-inline-form"><input class="cb-field" id="cb-cat-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"><button class="cb-btn cb-btn--dark" type="submit"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>Download the catalog</button></div></div>
+<p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+<p class="cb-small" data-cb-catalog-note>Free PDF, sent to your inbox. No spam, unsubscribe anytime.</p>
+<p class="cb-note cb-error" data-cb-catalog-error role="alert" style="text-align:left" hidden>Sorry, that didn’t go through. Please try again.</p>
 </form>
-<div class="cb-done" data-cb-catalog-done role="status" hidden><span class="cb-done__icon"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg></span><p><strong>Your catalog is downloading.</strong><br>A copy is on its way to your inbox. <a href="#quote" style="color:#45522a;font-weight:700">Ready for a quote?</a></p></div>
+<div class="cb-done" data-cb-catalog-done role="status" hidden><span class="cb-done__icon"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg></span><p><strong>Thanks! Your catalog is on its way.</strong><br>Check your inbox in a few minutes. <a href="#quote" style="color:#45522a;font-weight:700">Ready for a quote?</a></p></div>
 
 </div>
 
@@ -573,18 +576,19 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 
 <form class="cb-form" data-cb-step="1">
 <div class="cb-fields">
-<div><label class="cb-label" for="cb-name">Full name <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-name" type="text" required autocomplete="name" placeholder="Jordan Smith"></div>
-<div><label class="cb-label" for="cb-email">Email <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-email" type="email" required autocomplete="email" placeholder="you@example.com"></div>
-<div><label class="cb-label" for="cb-phone">Phone <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-phone" type="tel" required autocomplete="tel" placeholder="(604) 555-0123"></div>
-<div><label class="cb-label" for="cb-city">City or postal code <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-city" type="text" required autocomplete="postal-code" placeholder="Langley or V2Y 1A1"></div>
-<div><label class="cb-label" for="cb-contact">Best way to reach you</label><select class="cb-field" id="cb-contact"><option>Phone call</option><option>Text message</option><option>Email</option></select></div>
+<div><label class="cb-label" for="cb-name">Full name <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-name" name="name" type="text" required autocomplete="name" placeholder="Jordan Smith"></div>
+<div><label class="cb-label" for="cb-email">Email <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"></div>
+<div><label class="cb-label" for="cb-phone">Phone <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-phone" name="phone" type="tel" required autocomplete="tel" placeholder="(604) 555-0123"></div>
+<div><label class="cb-label" for="cb-city">City or postal code <span class="cb-req" aria-hidden="true">*</span></label><input class="cb-field" id="cb-city" name="city" type="text" required autocomplete="postal-code" placeholder="Langley or V2Y 1A1"></div>
+<div><label class="cb-label" for="cb-contact">Best way to reach you</label><select class="cb-field" id="cb-contact" name="contact_preference"><option>Phone call</option><option>Text message</option><option>Email</option></select></div>
 </div>
+<p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
 <button class="cb-btn cb-btn--primary cb-btn--lg" type="submit">Continue to garage details <svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
 <p class="cb-note"><span aria-hidden="true">*</span> Required · Takes about a minute · No obligation</p>
 </form>
 
 <form class="cb-form" data-cb-step="2" hidden>
-<div><label class="cb-label" for="cb-size">Garage size</label><select class="cb-field" id="cb-size"><option value="">Choose a size</option><option>1-car garage</option><option>2-car garage</option><option>3-car garage or larger</option><option>Not sure</option></select></div>
+<div><label class="cb-label" for="cb-size">Garage size</label><select class="cb-field" id="cb-size" name="garage_size"><option value="">Choose a size</option><option>1-car garage</option><option>2-car garage</option><option>3-car garage or larger</option><option>Not sure</option></select></div>
 <fieldset class="cb-fieldset"><legend>Services you’re interested in</legend>
 <div class="cb-chips">
 <button type="button" class="cb-toggle cb-chip" data-cb-svc="reset" aria-pressed="false"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg>Caveback Reset</button>
@@ -594,16 +598,17 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 <button type="button" class="cb-toggle cb-chip" data-cb-svc="floor" aria-pressed="false"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6L9 17l-5-5"/></svg>Floor Finish</button>
 </div>
 </fieldset>
-<div><label class="cb-label" for="cb-msg">Tell us about your garage</label><textarea class="cb-field" id="cb-msg" rows="3" placeholder="What’s in there now, and what would you like to use the space for?"></textarea></div>
+<div><label class="cb-label" for="cb-msg">Tell us about your garage</label><textarea class="cb-field" id="cb-msg" name="message" rows="3" placeholder="What’s in there now, and what would you like to use the space for?"></textarea></div>
 <div><span class="cb-label">Photos or a short video</span>
-<label class="cb-drop" for="cb-files"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span><strong>Choose files</strong> or drag them here</span><span class="cb-small" style="font-size:13px" data-cb-files-label>JPG, PNG, HEIC or MP4 · up to 5 files · [max size] each</span></label>
-<input class="cb-sr" id="cb-files" type="file" multiple accept="image/*,video/*"></div>
-<div><label class="cb-label" for="cb-video">Or paste a video link <span style="font-weight:400;color:var(--cb-muted)">(optional)</span></label><input class="cb-field" id="cb-video" type="url" placeholder="YouTube, Google Drive or Dropbox link"></div>
-<label class="cb-consent"><input type="checkbox" required><span>I agree that Caveback may use these details to contact me about my quote. See our <a href="#privacy">Privacy Policy</a>. <span class="cb-req" aria-hidden="true">*</span></span></label>
+<label class="cb-drop" for="cb-files"><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><span><strong>Choose files</strong> or drag them here</span><span class="cb-small" style="font-size:13px" data-cb-files-label>JPG, PNG or HEIC · up to 5 photos · 8 MB total. For video, paste a link below.</span></label>
+<input class="cb-sr" id="cb-files" name="photos" type="file" multiple accept="image/*,video/*"></div>
+<div><label class="cb-label" for="cb-video">Or paste a video link <span style="font-weight:400;color:var(--cb-muted)">(optional)</span></label><input class="cb-field" id="cb-video" name="video_link" type="url" placeholder="YouTube, Google Drive or Dropbox link"></div>
+<label class="cb-consent"><input type="checkbox" name="consent" value="yes" required><span>I agree that Caveback may use these details to contact me about my quote. See our <a href="#privacy">Privacy Policy</a>. <span class="cb-req" aria-hidden="true">*</span></span></label>
 <div class="cb-form-row">
 <button class="cb-btn cb-btn--ghost cb-btn--lg" type="button" data-cb-back><svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>Back</button>
 <button class="cb-btn cb-btn--primary cb-btn--lg" type="submit">Send my quote request <svg class="cb-icon " viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
 </div>
+<p class="cb-note cb-error" data-cb-quote-error role="alert" hidden>Sorry, your request didn’t go through. Please try again, or call us.</p>
 <p class="cb-note">Spam-protected. Your details are never sold or shared.</p>
 </form>
 </div>
@@ -724,5 +729,16 @@ h1:where(.wp-block-heading).has-background,h2:where(.wp-block-heading).has-backg
 var e="script#wp-emoji-settings",t=document.querySelector(e);if(!(t instanceof HTMLScriptElement))throw new Error("Element missing: "+e);const r=JSON.parse(t.text),s=(window._wpemojiSettings=r,"wpEmojiSettingsSupports"),o=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(s,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const r=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===r[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,r){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!r(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,r){let a;const s=(a="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),o=(s.textBaseline="top",s.font="600 32px Arial",{});return e.forEach(e=>{o[e]=t(s,e,n,r)}),o}function a(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}r.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(s));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(o),u.toString(),c.toString(),p.toString()].join(",")+"));",r=new Blob([e],{type:"text/javascript"});const a=new Worker(URL.createObjectURL(r),{name:"wpTestEmojiSupports"});return void(a.onmessage=e=>{i(n=e.data),a.terminate(),t(n)})}catch(e){}i(n=f(o,u,c,p))}t(n)}).then(e=>{for(const n in e)r.supports[n]=e[n],r.supports.everything=r.supports.everything&&r.supports[n],"flag"!==n&&(r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&r.supports[n]);var t;r.supports.everythingExceptFlag=r.supports.everythingExceptFlag&&!r.supports.flag,r.supports.everything||((t=r.source||{}).concatemoji?a(t.concatemoji):t.wpemoji&&t.twemoji&&(a(t.twemoji),a(t.wpemoji)))});
 //# sourceURL=/wp-includes/js/wp-emoji-loader.min.js
 </script>
+
+<form name="quote" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" hidden>
+<input name="name"><input name="email"><input name="phone"><input name="city">
+<input name="contact_preference"><input name="garage_size"><input name="services">
+<textarea name="message"></textarea><input name="video_link"><input name="consent">
+<input type="file" name="photo_1"><input type="file" name="photo_2"><input type="file" name="photo_3">
+<input type="file" name="photo_4"><input type="file" name="photo_5"><input name="bot-field">
+</form>
+<form name="catalog" data-netlify="true" netlify-honeypot="bot-field" hidden>
+<input name="email"><input name="bot-field">
+</form>
 </body>
 </html>

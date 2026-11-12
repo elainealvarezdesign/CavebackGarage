@@ -43,8 +43,10 @@ To refresh it after changing the theme: run WordPress locally with the theme act
 
 ## Prototype limits (before launch)
 
-- **Forms are simulated.** The quote and catalog forms validate and show their success
-  states, but send nothing. On the live site use Elementor Pro Form or WPForms (multi-step,
+- **Forms:** on the Netlify copy, the quote and catalog forms post to **Netlify Forms**
+  (submissions in Netlify → Forms; turn on email notifications under Forms → Form
+  notifications). Photos: up to 5 files, 8 MB per submission. In WordPress / Playground the
+  forms are simulated. On the final site use Elementor Pro Form or WPForms (multi-step,
   file upload, reCAPTCHA, email notification, catalog PDF delivery).
 - **Photos are placeholders from [Pexels](https://www.pexels.com/)** (free licence). Replace
   them with real Caveback before/after projects.

@@ -396,6 +396,9 @@ textarea.cb-field { resize: vertical; }
 .cb-form-row { display: flex; gap: 10px; }
 .cb-form-row .cb-btn--primary { flex: 1 1 auto; }
 .cb-note { margin: 0; font-size: 13px; color: var(--cb-muted); text-align: center; }
+.cb-error { color: #ffb4a8; font-weight: 600; font-size: 14px; }
+.cb-catalog .cb-error { color: #9b2c1f; }
+.cb-btn[aria-busy="true"] { opacity: .7; cursor: progress; }
 .cb-done { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 16px 0; }
 .cb-done h3 { font-size: 28px; font-weight: 900; }
 .cb-done p { margin: 0; font-size: 16px; line-height: 1.6; color: var(--cb-muted); }

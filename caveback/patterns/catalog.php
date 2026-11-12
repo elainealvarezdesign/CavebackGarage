@@ -43,10 +43,12 @@
 </ul>
 <form class="cb-form" data-cb-catalog novalidate>
 <div><label class="cb-label" for="cb-cat-email">Email address</label>
-<div class="cb-inline-form"><input class="cb-field" id="cb-cat-email" type="email" required autocomplete="email" placeholder="you@example.com"><button class="cb-btn cb-btn--dark" type="submit"><?php echo caveback_icon( 'download' ); ?>Download the catalog</button></div></div>
-<p class="cb-small">Free PDF, instant download. We’ll email you a copy too. No spam, unsubscribe anytime.</p>
+<div class="cb-inline-form"><input class="cb-field" id="cb-cat-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com"><button class="cb-btn cb-btn--dark" type="submit"><?php echo caveback_icon( 'download' ); ?>Download the catalog</button></div></div>
+<p hidden><label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+<p class="cb-small" data-cb-catalog-note>Free PDF, sent to your inbox. No spam, unsubscribe anytime.</p>
+<p class="cb-note cb-error" data-cb-catalog-error role="alert" style="text-align:left" hidden>Sorry, that didn’t go through. Please try again.</p>
 </form>
-<div class="cb-done" data-cb-catalog-done role="status" hidden><span class="cb-done__icon"><?php echo caveback_icon( 'check' ); ?></span><p><strong>Your catalog is downloading.</strong><br>A copy is on its way to your inbox. <a href="#quote" style="color:#45522a;font-weight:700">Ready for a quote?</a></p></div>
+<div class="cb-done" data-cb-catalog-done role="status" hidden><span class="cb-done__icon"><?php echo caveback_icon( 'check' ); ?></span><p><strong>Thanks! Your catalog is on its way.</strong><br>Check your inbox in a few minutes. <a href="#quote" style="color:#45522a;font-weight:700">Ready for a quote?</a></p></div>
 <!-- /wp:html -->
 </div>
 <!-- /wp:group -->

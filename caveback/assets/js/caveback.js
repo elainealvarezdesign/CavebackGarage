@@ -85,17 +85,54 @@
 		set();
 	} );
 
-	// Catalog form (simulated).
+	// Form delivery. The static Netlify copy sets window.CAVEBACK_FORMS = 'netlify' and
+	// posts to Netlify Forms; anywhere else (WordPress, Playground) submits are simulated.
+	var useNetlify = window.CAVEBACK_FORMS === 'netlify';
+
+	function send( formName, data ) {
+		if ( ! useNetlify ) {
+			return Promise.resolve();
+		}
+		data.append( 'form-name', formName );
+		return fetch( '/', { method: 'POST', body: data } ).then( function ( res ) {
+			if ( ! res.ok ) {
+				throw new Error( 'Form submit failed: ' + res.status );
+			}
+		} );
+	}
+
+	function busy( form, on ) {
+		var btn = form.querySelector( 'button[type="submit"]' );
+		if ( btn ) {
+			btn.disabled = on;
+			btn.setAttribute( 'aria-busy', on ? 'true' : 'false' );
+		}
+	}
+
+	// Catalog form.
 	var catalog = document.querySelector( '[data-cb-catalog]' );
 	var catalogDone = document.querySelector( '[data-cb-catalog-done]' );
+	var catalogError = document.querySelector( '[data-cb-catalog-error]' );
 	if ( catalog && catalogDone ) {
 		catalog.addEventListener( 'submit', function ( e ) {
 			e.preventDefault();
 			if ( ! catalog.reportValidity() ) {
 				return;
 			}
-			catalog.hidden = true;
-			catalogDone.hidden = false;
+			busy( catalog, true );
+			if ( catalogError ) {
+				catalogError.hidden = true;
+			}
+			send( 'catalog', new FormData( catalog ) ).then( function () {
+				catalog.hidden = true;
+				catalogDone.hidden = false;
+			} ).catch( function () {
+				if ( catalogError ) {
+					catalogError.hidden = false;
+				}
+			} ).then( function () {
+				busy( catalog, false );
+			} );
 		} );
 	}
 
@@ -140,14 +177,40 @@
 		quote.querySelector( '[data-cb-back]' ).addEventListener( 'click', function () {
 			show( 1 );
 		} );
+		var quoteError = quote.querySelector( '[data-cb-quote-error]' );
 		step2.addEventListener( 'submit', function ( e ) {
 			e.preventDefault();
 			if ( ! step2.reportValidity() ) {
 				return;
 			}
-			steps.hidden = true;
-			done.hidden = false;
-			done.focus();
+			// One submission from both steps. Netlify takes one file per field.
+			var data = new FormData( step1 );
+			new FormData( step2 ).forEach( function ( value, key ) {
+				if ( key !== 'photos' ) {
+					data.append( key, value );
+				}
+			} );
+			data.append( 'services', Object.keys( SERVICE_NAMES ).filter( function ( k ) {
+				return selected[ k ];
+			} ).map( function ( k ) {
+				return SERVICE_NAMES[ k ];
+			} ).join( ', ' ) );
+			if ( files ) {
+				Array.prototype.slice.call( files.files, 0, 5 ).forEach( function ( file, i ) {
+					data.append( 'photo_' + ( i + 1 ), file );
+				} );
+			}
+			busy( step2, true );
+			quoteError.hidden = true;
+			send( 'quote', data ).then( function () {
+				steps.hidden = true;
+				done.hidden = false;
+				done.focus();
+			} ).catch( function () {
+				quoteError.hidden = false;
+			} ).then( function () {
+				busy( step2, false );
+			} );
 		} );
 		quote.querySelector( '[data-cb-again]' ).addEventListener( 'click', function () {
 			step1.reset();

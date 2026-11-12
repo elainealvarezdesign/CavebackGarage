@@ -49,6 +49,23 @@ while queue:
         f.write(data)
 
 html = URL_RE.sub(r'\1', html)
+
+# Netlify Forms: detection forms (Netlify reads these at deploy) and the switch that
+# makes caveback.js post to Netlify instead of simulating the submit.
+NETLIFY_FORMS = """
+<form name="quote" data-netlify="true" netlify-honeypot="bot-field" enctype="multipart/form-data" hidden>
+<input name="name"><input name="email"><input name="phone"><input name="city">
+<input name="contact_preference"><input name="garage_size"><input name="services">
+<textarea name="message"></textarea><input name="video_link"><input name="consent">
+<input type="file" name="photo_1"><input type="file" name="photo_2"><input type="file" name="photo_3">
+<input type="file" name="photo_4"><input type="file" name="photo_5"><input name="bot-field">
+</form>
+<form name="catalog" data-netlify="true" netlify-honeypot="bot-field" hidden>
+<input name="email"><input name="bot-field">
+</form>
+"""
+html = html.replace('</head>', "<script>window.CAVEBACK_FORMS = 'netlify';</script>\n</head>", 1)
+html = html.replace('</body>', NETLIFY_FORMS + '</body>', 1)
 with open(os.path.join(OUT, 'index.html'), 'w') as f:
     f.write(html)
 print('files', len(seen))
