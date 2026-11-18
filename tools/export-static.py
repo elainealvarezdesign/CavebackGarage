@@ -58,10 +58,10 @@ NETLIFY_FORMS = """
 <input name="contact_preference"><input name="garage_size"><input name="services">
 <textarea name="message"></textarea><input name="video_link"><input name="consent">
 <input type="file" name="photo_1"><input type="file" name="photo_2"><input type="file" name="photo_3">
-<input type="file" name="photo_4"><input type="file" name="photo_5"><input name="bot-field">
+<input type="file" name="photo_4"><input type="file" name="photo_5"><input name="bot-field"><input name="version">
 </form>
 <form name="catalog" data-netlify="true" netlify-honeypot="bot-field" hidden>
-<input name="email"><input name="bot-field">
+<input name="email"><input name="bot-field"><input name="version">
 </form>
 """
 html = html.replace('</head>', "<script>window.CAVEBACK_FORMS = 'netlify';</script>\n</head>", 1)
