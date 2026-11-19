@@ -61,7 +61,7 @@ input,select,textarea,button{font:inherit}
 .ub .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:40px}
 .ub a{color:#F2F4F0;text-decoration:none}
 .hdr{position:sticky;top:0;z-index:40;background:rgba(25,37,44,0.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.hdr .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:10px;padding-bottom:10px}
+.hdr .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;padding-top:6px;padding-bottom:6px}
 .navpill{display:flex;gap:2px;background:#223139;border:1px solid #34474F;border-radius:999px;padding:5px}
 .navpill a{color:#E2E5E1;text-decoration:none;font-size:14px;font-weight:500;padding:9px 16px;border-radius:999px}
 .navpill a:hover{background:#34474F;color:#FFFFFF}
@@ -70,19 +70,19 @@ input,select,textarea,button{font:inherit}
 .mnav a{color:#F2F4F0;text-decoration:none;font-size:20px;font-weight:700;padding:12px 4px;border-bottom:1px solid #283A44}
 /* hero bento */
 .bento{display:grid;grid-template-columns:1.25fr .9fr .9fr;grid-template-rows:auto auto;gap:12px;padding-top:8px}
-.b-main{grid-row:1 / span 2;background:#2A3A23;border-radius:28px;padding:clamp(24px,2.8vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:20px;position:relative;overflow:hidden}
-.b-photo{grid-column:2 / span 2;border-radius:28px;overflow:hidden;position:relative;min-height:clamp(220px,24vw,300px);background:#283A44}
+.b-main{grid-row:1 / span 2;background:#2A3A23;border-radius:28px;padding:clamp(22px,min(2.6vw,4.2vh),40px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(14px,2.2vh,20px);position:relative;overflow:hidden}
+.b-photo{grid-column:2 / span 2;border-radius:28px;overflow:hidden;position:relative;min-height:clamp(200px,min(24vw,31vh),300px);background:#283A44}
 .b-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
-.b-lime{background:#D6F25B;color:#19252C;border-radius:28px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:clamp(160px,15vw,190px);text-decoration:none}
+.b-lime{background:#D6F25B;color:#19252C;border-radius:28px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-height:clamp(150px,min(15vw,22vh),190px);text-decoration:none}
 .b-lime:hover{color:#19252C;background:#E1F77C}
-.b-concrete{background:#E2E5E1;color:#19252C;border-radius:28px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;min-height:clamp(160px,15vw,190px)}
-.h1{margin:0;font-size:clamp(42px,4.8vw,72px);line-height:.95;font-weight:900;letter-spacing:-.035em;color:#FFFFFF}
+.b-concrete{background:#E2E5E1;color:#19252C;border-radius:28px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;gap:12px;min-height:clamp(150px,min(15vw,22vh),190px)}
+.h1{margin:0;font-size:clamp(40px,min(4.6vw,7.4vh),72px);line-height:.95;font-weight:900;letter-spacing:-.035em;color:#FFFFFF}
 .h1 .serif{font-size:1.1em;color:#D6F25B}
 .tag{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:7px 14px;font-size:13px;font-weight:600;color:#F2F4F0}
 .tag::before{content:"";width:7px;height:7px;border-radius:50%;background:#D6F25B}
 /* trust */
 .trust{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:12px;background:#213039;border:1px solid #2E404A;border-radius:20px}
-.trust li{display:flex;align-items:center;gap:12px;padding:18px 20px;font-size:14px;font-weight:600;border-left:1px solid #2E404A}
+.trust li{display:flex;align-items:center;gap:12px;padding:clamp(12px,1.8vh,18px) 20px;font-size:14px;font-weight:600;border-left:1px solid #2E404A}
 .trust li:first-child{border-left:0}
 .trust .i{color:#D6F25B}
 /* spectrum */
@@ -186,7 +186,7 @@ input,select,textarea,button{font:inherit}
 .giant .serif{color:#283A44}
 .mcta{display:none}
 /* responsive */
-@media (min-width:1001px) and (max-height:760px){
+@media (min-width:1001px) and (max-height:900px){
 .ub{display:none}
 }
 @media (max-width:1000px){
