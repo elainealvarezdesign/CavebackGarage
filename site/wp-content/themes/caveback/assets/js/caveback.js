@@ -1,9 +1,10 @@
 /**
- * Caveback one-page interactions (prototype).
- * - Card sliders: prev/next arrows scroll the track one card.
- * - "Add to quote" toggles: shared selection between service cards and form chips.
- * - Before/after comparison.
- * - Catalog and 2-step quote forms: native validation, simulated submit.
+ * Caveback one-page interactions.
+ * - Mobile menu, services carousel, "Add to quote" selection (cards + form chips).
+ * - Before/after comparison, FAQ accordion.
+ * - 2-step quote form and catalog form. The static Netlify copy sets
+ *   window.CAVEBACK_FORMS = 'netlify' and posts to Netlify Forms; in WordPress
+ *   and Playground the submit is simulated.
  */
 ( function () {
 	'use strict';
@@ -15,82 +16,111 @@
 		wall: 'Wall System',
 		floor: 'Floor Finish'
 	};
+	var PLUS = 'M12 5v14M5 12h14';
+	var CHECK = 'M20 6L9 17l-5-5';
+	var MINUS = 'M5 12h14';
 
-	// Sliders.
-	document.querySelectorAll( '[data-cb-slider]' ).forEach( function ( wrap ) {
-		var track = wrap.querySelector( '.cb-slider' );
-		if ( ! track ) {
-			return;
+	function $( id ) {
+		return document.getElementById( id );
+	}
+
+	// Mobile menu.
+	var menuBtn = $( 'menu-btn' );
+	var menu = $( 'mnav-wrap' );
+	function setMenu( open ) {
+		menu.hidden = ! open;
+		menuBtn.setAttribute( 'aria-expanded', open ? 'true' : 'false' );
+	}
+	menuBtn.addEventListener( 'click', function () {
+		setMenu( menu.hidden );
+	} );
+	document.querySelectorAll( '[data-close-menu]' ).forEach( function ( a ) {
+		a.addEventListener( 'click', function () {
+			setMenu( false );
+		} );
+	} );
+	document.addEventListener( 'keydown', function ( e ) {
+		if ( e.key === 'Escape' && ! menu.hidden ) {
+			setMenu( false );
+			menuBtn.focus();
 		}
-		function step() {
-			var card = track.querySelector( 'li' );
-			return card ? card.getBoundingClientRect().width + 16 : 280;
-		}
-		var prev = wrap.querySelector( '[data-cb-prev]' );
-		var next = wrap.querySelector( '[data-cb-next]' );
-		if ( prev ) {
-			prev.addEventListener( 'click', function () {
-				track.scrollBy( { left: -step(), behavior: 'smooth' } );
-			} );
-		}
-		if ( next ) {
-			next.addEventListener( 'click', function () {
-				track.scrollBy( { left: step(), behavior: 'smooth' } );
-			} );
-		}
+	} );
+
+	// Services carousel.
+	var track = $( 'svc-track' );
+	function step() {
+		var card = track.querySelector( 'li' );
+		return card ? card.getBoundingClientRect().width + 14 : 300;
+	}
+	$( 'svc-prev' ).addEventListener( 'click', function () {
+		track.scrollBy( { left: -step(), behavior: 'smooth' } );
+	} );
+	$( 'svc-next' ).addEventListener( 'click', function () {
+		track.scrollBy( { left: step(), behavior: 'smooth' } );
 	} );
 
 	// Service selection, shared by the cards and the form chips.
 	var selected = { reset: true };
-	var summary = document.querySelector( '[data-cb-summary]' );
-
+	var summary = $( 'svc-summary' );
+	function pickedNames() {
+		return Object.keys( SERVICE_NAMES ).filter( function ( k ) {
+			return selected[ k ];
+		} ).map( function ( k ) {
+			return SERVICE_NAMES[ k ];
+		} );
+	}
 	function renderServices() {
-		document.querySelectorAll( '[data-cb-svc]' ).forEach( function ( btn ) {
-			var on = !! selected[ btn.getAttribute( 'data-cb-svc' ) ];
+		document.querySelectorAll( '[data-svc]' ).forEach( function ( btn ) {
+			var on = !! selected[ btn.getAttribute( 'data-svc' ) ];
 			btn.setAttribute( 'aria-pressed', on ? 'true' : 'false' );
-			var label = btn.querySelector( '[data-cb-label]' );
-			if ( label ) {
-				label.textContent = on ? 'Added to quote' : 'Add to quote';
+			var path = btn.querySelector( 'path' );
+			if ( path && btn.classList.contains( 'svc-add' ) ) {
+				path.setAttribute( 'd', on ? CHECK : PLUS );
 			}
 		} );
-		if ( summary ) {
-			var picked = Object.keys( SERVICE_NAMES ).filter( function ( k ) {
-				return selected[ k ];
-			} ).map( function ( k ) {
-				return SERVICE_NAMES[ k ];
-			} );
-			summary.textContent = picked.length === 0
-				? 'No services selected yet. Pick any that fit, or just tell us about your garage.'
-				: ( picked.length === 1 ? '1 service added to your quote: ' : picked.length + ' services added to your quote: ' ) + picked.join( ', ' ) + '.';
-		}
+		var picked = pickedNames();
+		summary.textContent = picked.length === 0
+			? 'No services selected yet. Pick any that fit, or just tell us about your garage.'
+			: ( picked.length === 1 ? '1 service in your quote: ' : picked.length + ' services in your quote: ' ) + picked.join( ', ' ) + '.';
 	}
 	document.addEventListener( 'click', function ( e ) {
-		var btn = e.target.closest( '[data-cb-svc]' );
+		var btn = e.target.closest( '[data-svc]' );
 		if ( ! btn ) {
 			return;
 		}
-		var key = btn.getAttribute( 'data-cb-svc' );
+		var key = btn.getAttribute( 'data-svc' );
 		selected[ key ] = ! selected[ key ];
 		renderServices();
 	} );
 	renderServices();
 
 	// Before / after.
-	document.querySelectorAll( '[data-cb-ba]' ).forEach( function ( ba ) {
-		var range = ba.querySelector( 'input[type="range"]' );
-		function set() {
-			ba.style.setProperty( '--split', range.value + '%' );
-		}
-		range.addEventListener( 'input', set );
-		set();
+	var ba = $( 'ba' );
+	var range = $( 'ba-v2' );
+	function setSplit() {
+		ba.style.setProperty( '--split', range.value + '%' );
+	}
+	range.addEventListener( 'input', setSplit );
+	setSplit();
+
+	// FAQ: one row open at a time.
+	var rows = document.querySelectorAll( '.faq-row' );
+	rows.forEach( function ( row ) {
+		row.querySelector( '.faq-q' ).addEventListener( 'click', function () {
+			var opening = ! row.classList.contains( 'open' );
+			rows.forEach( function ( r ) {
+				var open = opening && r === row;
+				r.classList.toggle( 'open', open );
+				r.querySelector( '.faq-q' ).setAttribute( 'aria-expanded', open ? 'true' : 'false' );
+				r.querySelector( '.faq-ico path' ).setAttribute( 'd', open ? MINUS : PLUS );
+				r.querySelector( 'p' ).hidden = ! open;
+			} );
+		} );
 	} );
 
-	// Form delivery. The static Netlify copy sets window.CAVEBACK_FORMS = 'netlify' and
-	// posts to Netlify Forms; anywhere else (WordPress, Playground) submits are simulated.
-	var useNetlify = window.CAVEBACK_FORMS === 'netlify';
-
+	// Forms: Netlify Forms on the static copy, simulated elsewhere.
 	function send( formName, data ) {
-		if ( ! useNetlify ) {
+		if ( window.CAVEBACK_FORMS !== 'netlify' ) {
 			return Promise.resolve();
 		}
 		data.append( 'form-name', formName );
@@ -100,131 +130,105 @@
 			}
 		} );
 	}
+	function busy( btn, on ) {
+		btn.disabled = on;
+		btn.setAttribute( 'aria-busy', on ? 'true' : 'false' );
+	}
 
-	function busy( form, on ) {
-		var btn = form.querySelector( 'button[type="submit"]' );
-		if ( btn ) {
-			btn.disabled = on;
-			btn.setAttribute( 'aria-busy', on ? 'true' : 'false' );
+	// Catalog.
+	var catForm = $( 'cat-form' );
+	var catErr = $( 'cat-error' );
+	catForm.addEventListener( 'submit', function ( e ) {
+		e.preventDefault();
+		if ( ! catForm.reportValidity() ) {
+			return;
+		}
+		var btn = catForm.querySelector( 'button[type="submit"]' );
+		busy( btn, true );
+		catErr.hidden = true;
+		send( 'catalog', new FormData( catForm ) ).then( function () {
+			$( 'cat-form-wrap' ).hidden = true;
+			$( 'cat-done' ).hidden = false;
+		} ).catch( function () {
+			catErr.hidden = false;
+		} ).then( function () {
+			busy( btn, false );
+		} );
+	} );
+
+	// Quote: two steps, one submission.
+	var form1 = $( 'q-form1' );
+	var form2 = $( 'q-form2' );
+	var qErr = $( 'q-error' );
+	var files = $( 'v2-files' );
+	function showStep( n ) {
+		$( 'q-s1' ).hidden = n !== 1;
+		$( 'q-s2' ).hidden = n !== 2;
+		$( 'q-stepnum' ).textContent = String( n );
+		var p1 = $( 'q-p1' );
+		var p2 = $( 'q-p2' );
+		p2.style.color = n === 2 ? '#19252C' : '#6B7366';
+		p2.querySelector( 'span' ).style.background = n === 2 ? '#566634' : '#DCDFD8';
+		if ( n === 1 ) {
+			p1.setAttribute( 'aria-current', 'step' );
+			p2.removeAttribute( 'aria-current' );
+		} else {
+			p2.setAttribute( 'aria-current', 'step' );
+			p1.removeAttribute( 'aria-current' );
+		}
+		var first = ( n === 1 ? form1 : form2 ).querySelector( 'input, select, textarea' );
+		if ( first ) {
+			first.focus( { preventScroll: true } );
 		}
 	}
-
-	// Catalog form.
-	var catalog = document.querySelector( '[data-cb-catalog]' );
-	var catalogDone = document.querySelector( '[data-cb-catalog-done]' );
-	var catalogError = document.querySelector( '[data-cb-catalog-error]' );
-	if ( catalog && catalogDone ) {
-		catalog.addEventListener( 'submit', function ( e ) {
-			e.preventDefault();
-			if ( ! catalog.reportValidity() ) {
-				return;
-			}
-			busy( catalog, true );
-			if ( catalogError ) {
-				catalogError.hidden = true;
-			}
-			send( 'catalog', new FormData( catalog ) ).then( function () {
-				catalog.hidden = true;
-				catalogDone.hidden = false;
-			} ).catch( function () {
-				if ( catalogError ) {
-					catalogError.hidden = false;
-				}
-			} ).then( function () {
-				busy( catalog, false );
-			} );
-		} );
-	}
-
-	// Quote form: two steps (simulated submit).
-	var quote = document.querySelector( '[data-cb-quote]' );
-	if ( quote ) {
-		var steps = quote.querySelector( '[data-cb-quote-steps]' );
-		var done = quote.querySelector( '[data-cb-quote-done]' );
-		var step1 = quote.querySelector( '[data-cb-step="1"]' );
-		var step2 = quote.querySelector( '[data-cb-step="2"]' );
-		var label = quote.querySelector( '[data-cb-step-label]' );
-		var bars = quote.querySelectorAll( '[data-cb-progress]' );
-		var files = quote.querySelector( '#cb-files' );
-		var filesLabel = quote.querySelector( '[data-cb-files-label]' );
-
-		var show = function ( n ) {
-			step1.hidden = n !== 1;
-			step2.hidden = n !== 2;
-			label.textContent = 'Step ' + n + ' of 2';
-			bars.forEach( function ( bar ) {
-				var i = Number( bar.getAttribute( 'data-cb-progress' ) );
-				bar.classList.toggle( 'is-active', i === n );
-				bar.classList.toggle( 'is-done', i < n );
-				if ( i === n ) {
-					bar.setAttribute( 'aria-current', 'step' );
-				} else {
-					bar.removeAttribute( 'aria-current' );
-				}
-			} );
-			var first = ( n === 1 ? step1 : step2 ).querySelector( 'input, select, textarea' );
-			if ( first ) {
-				first.focus( { preventScroll: true } );
-			}
-		};
-
-		step1.addEventListener( 'submit', function ( e ) {
-			e.preventDefault();
-			if ( step1.reportValidity() ) {
-				show( 2 );
-			}
-		} );
-		quote.querySelector( '[data-cb-back]' ).addEventListener( 'click', function () {
-			show( 1 );
-		} );
-		var quoteError = quote.querySelector( '[data-cb-quote-error]' );
-		step2.addEventListener( 'submit', function ( e ) {
-			e.preventDefault();
-			if ( ! step2.reportValidity() ) {
-				return;
-			}
-			// One submission from both steps. Netlify takes one file per field.
-			var data = new FormData( step1 );
-			new FormData( step2 ).forEach( function ( value, key ) {
-				if ( key !== 'photos' ) {
-					data.append( key, value );
-				}
-			} );
-			data.append( 'services', Object.keys( SERVICE_NAMES ).filter( function ( k ) {
-				return selected[ k ];
-			} ).map( function ( k ) {
-				return SERVICE_NAMES[ k ];
-			} ).join( ', ' ) );
-			if ( files ) {
-				Array.prototype.slice.call( files.files, 0, 5 ).forEach( function ( file, i ) {
-					data.append( 'photo_' + ( i + 1 ), file );
-				} );
-			}
-			busy( step2, true );
-			quoteError.hidden = true;
-			send( 'quote', data ).then( function () {
-				steps.hidden = true;
-				done.hidden = false;
-				done.focus();
-			} ).catch( function () {
-				quoteError.hidden = false;
-			} ).then( function () {
-				busy( step2, false );
-			} );
-		} );
-		quote.querySelector( '[data-cb-again]' ).addEventListener( 'click', function () {
-			step1.reset();
-			step2.reset();
-			done.hidden = true;
-			steps.hidden = false;
-			show( 1 );
-		} );
-		if ( files && filesLabel ) {
-			files.addEventListener( 'change', function () {
-				if ( files.files.length ) {
-					filesLabel.textContent = files.files.length + ( files.files.length === 1 ? ' file selected' : ' files selected' );
-				}
-			} );
+	form1.addEventListener( 'submit', function ( e ) {
+		e.preventDefault();
+		if ( form1.reportValidity() ) {
+			showStep( 2 );
 		}
-	}
+	} );
+	$( 'q-back' ).addEventListener( 'click', function () {
+		showStep( 1 );
+	} );
+	form2.addEventListener( 'submit', function ( e ) {
+		e.preventDefault();
+		if ( ! form2.reportValidity() ) {
+			return;
+		}
+		var data = new FormData( form1 );
+		new FormData( form2 ).forEach( function ( value, key ) {
+			if ( key !== 'photos' ) {
+				data.append( key, value );
+			}
+		} );
+		data.append( 'services', pickedNames().join( ', ' ) );
+		Array.prototype.slice.call( files.files, 0, 5 ).forEach( function ( file, i ) {
+			data.append( 'photo_' + ( i + 1 ), file );
+		} );
+		var btn = form2.querySelector( 'button[type="submit"]' );
+		busy( btn, true );
+		qErr.hidden = true;
+		send( 'quote', data ).then( function () {
+			$( 'q-steps' ).hidden = true;
+			$( 'q-done' ).hidden = false;
+			$( 'q-done' ).focus();
+		} ).catch( function () {
+			qErr.hidden = false;
+		} ).then( function () {
+			busy( btn, false );
+		} );
+	} );
+	$( 'q-again' ).addEventListener( 'click', function () {
+		form1.reset();
+		form2.reset();
+		$( 'q-done' ).hidden = true;
+		$( 'q-steps' ).hidden = false;
+		showStep( 1 );
+	} );
+	files.addEventListener( 'change', function () {
+		var label = document.querySelector( 'label[for="v2-files"] strong' );
+		if ( label && files.files.length ) {
+			label.textContent = files.files.length + ( files.files.length === 1 ? ' photo selected' : ' photos selected' );
+		}
+	} );
 }() );

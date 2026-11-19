@@ -1,62 +1,26 @@
 <?php
 /**
- * Title: Services (slider)
+ * Title: Services (carousel)
  * Slug: caveback/services
  * Categories: caveback
  */
-
-$caveback_services = array(
-	array( 'reset', 'trash', '01', 'Caveback Reset', 'Full garage cleanout. We sort with you, remove what goes and leave a clean slate.', 'Start here', 'cb-badge--light' ),
-	array( 'keep', 'layers', '02', 'Keep Clear', 'An organization plan with clear zones for tools, sports gear, seasonal items and more.', 'Organization', '' ),
-	array( 'tote', 'tote', '03', 'Tote System', 'Custom racks sized for your totes, so every bin slides in and out easily.', 'Storage', '' ),
-	array( 'wall', 'wall', '04', 'Wall System', 'Slatwall panels and wall-mounted storage that get bikes, tools and gear off the floor.', 'Storage', '' ),
-	array( 'floor', 'floor', '05', 'Floor Finish', 'Professional floor coating for a durable, easy-to-clean finish.', 'Optional upgrade', 'cb-badge--outline' ),
-);
 ?>
-<!-- wp:group {"tagName":"section","anchor":"services","className":"cb-section","layout":{"type":"default"}} -->
-<section id="services" class="wp-block-group cb-section">
-<!-- wp:group {"className":"cb-wrap","layout":{"type":"default"}} -->
-<div class="wp-block-group cb-wrap">
-<!-- wp:group {"className":"cb-head-row","layout":{"type":"default"}} -->
-<div class="wp-block-group cb-head-row">
-<!-- wp:group {"layout":{"type":"default"}} -->
-<div class="wp-block-group">
-<!-- wp:paragraph {"className":"cb-eyebrow"} -->
-<p class="cb-eyebrow">Our services</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:heading {"className":"cb-h2"} -->
-<h2 class="wp-block-heading cb-h2">Five services. One clear garage.</h2>
-<!-- /wp:heading -->
-</div>
-<!-- /wp:group -->
-
-<!-- wp:paragraph {"className":"cb-body"} -->
-<p class="cb-body">Start with a Reset and add only the storage you need. Tap <strong>Add to quote</strong> on anything that fits; we’ll carry it into your quote form.</p>
-<!-- /wp:paragraph -->
-</div>
-<!-- /wp:group -->
-
 <!-- wp:html -->
-<div data-cb-slider>
-<ul class="cb-slider cb-slider--services" aria-label="Caveback services">
-<?php foreach ( $caveback_services as $s ) : ?>
-<li class="cb-card">
-<div class="cb-card__top"><span class="cb-icon-dot cb-icon-dot--lg"><?php echo caveback_icon( $s[1] ); ?></span><span class="cb-card__num"><?php echo esc_html( $s[2] ); ?></span></div>
-<h3 class="cb-h3"><?php echo esc_html( $s[3] ); ?></h3>
-<p><?php echo esc_html( $s[4] ); ?></p>
-<span class="cb-badge <?php echo esc_attr( $s[6] ); ?>"><?php echo esc_html( $s[5] ); ?></span>
-<button type="button" class="cb-toggle" data-cb-svc="<?php echo esc_attr( $s[0] ); ?>" aria-pressed="false"><?php echo caveback_icon( 'check' ); ?><span data-cb-label>Add to quote</span><span class="cb-sr"> — <?php echo esc_html( $s[3] ); ?></span></button>
-</li>
-<?php endforeach; ?>
+<section id="services" class="sec" aria-labelledby="svc-h">
+<div class="wrap">
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px 48px;flex-wrap:wrap;margin-bottom:40px">
+<div style="display:flex;flex-direction:column;gap:16px;max-width:640px"><p class="eyebrow">Our services</p><h2 class="h2" id="svc-h">Five services. <span class="serif">One</span> clear garage.</h2></div>
+<div style="display:flex;flex-direction:column;gap:18px;max-width:400px"><p class="lead">Start with a Reset and add only what you need. Tap <strong style="color:#FFFFFF">+</strong> on a service to add it to your quote.</p>
+<div style="display:flex;gap:10px"><button class="circ" type="button" aria-label="Previous services" id="svc-prev"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><path d="M19 12H5M11 18l-6-6 6-6"></path></svg></button><button class="circ circ-lime" type="button" aria-label="Next services" id="svc-next"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div></div>
+</div>
+<ul class="track" id="svc-track" aria-label="Caveback services">
+<li class="svc feat"><div class="svc-img"><img src="<?php echo caveback_img( 'before-cluttered.jpg' ); ?>" alt="" loading="lazy"><span class="svc-num">01</span><button class="svc-add" type="button" aria-pressed="false" aria-label="Add Caveback Reset to quote" data-svc="reset"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div><div class="svc-body"><h3>Caveback Reset</h3><p style="color:#D3DACB">Full garage cleanout. We sort with you, remove what goes and leave a clean slate.</p><span class="svc-tag" style="background:#D6F25B;color:#19252C">Start here</span></div></li>
+<li class="svc"><div class="svc-img"><img src="<?php echo caveback_img( 'project-clear-floor.jpg' ); ?>" alt="" loading="lazy"><span class="svc-num">02</span><button class="svc-add" type="button" aria-pressed="false" aria-label="Add Keep Clear to quote" data-svc="keep"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div><div class="svc-body"><h3>Keep Clear</h3><p>An organization plan with clear zones for tools, sports gear, seasonal items and more.</p><span class="svc-tag" style="border:1px solid #3F535D;color:#E2E5E1">Organization</span></div></li>
+<li class="svc"><div class="svc-img"><img src="<?php echo caveback_img( 'project-shelves.jpg' ); ?>" alt="" loading="lazy"><span class="svc-num">03</span><button class="svc-add" type="button" aria-pressed="false" aria-label="Add Tote System to quote" data-svc="tote"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div><div class="svc-body"><h3>Tote System</h3><p>Custom racks sized for your totes, so every bin slides in and out easily.</p><span class="svc-tag" style="border:1px solid #3F535D;color:#E2E5E1">Storage</span></div></li>
+<li class="svc"><div class="svc-img"><img src="<?php echo caveback_img( 'project-tool-wall.jpg' ); ?>" alt="" loading="lazy"><span class="svc-num">04</span><button class="svc-add" type="button" aria-pressed="false" aria-label="Add Wall System to quote" data-svc="wall"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div><div class="svc-body"><h3>Wall System</h3><p>Slatwall panels and wall-mounted storage that get bikes, tools and gear off the floor.</p><span class="svc-tag" style="border:1px solid #3F535D;color:#E2E5E1">Storage</span></div></li>
+<li class="svc"><div class="svc-img"><img src="<?php echo caveback_img( 'after-organized.jpg' ); ?>" alt="" loading="lazy"><span class="svc-num">05</span><button class="svc-add" type="button" aria-pressed="false" aria-label="Add Floor Finish to quote" data-svc="floor"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"></path></svg></button></div><div class="svc-body"><h3>Floor Finish</h3><p>Professional floor coating for a durable, easy-to-clean finish.</p><span class="svc-tag" style="border:1px dashed #5C707B;color:#C3CBBF">Optional upgrade</span></div></li>
 </ul>
-<div class="cb-slider-foot">
-<p class="cb-summary" role="status" data-cb-summary>No services selected yet. Pick any that fit, or just tell us about your garage.</p>
-<div class="cb-arrows"><button class="cb-arrow-btn" type="button" data-cb-prev aria-label="Previous services"><?php echo caveback_icon( 'arrow-left' ); ?></button><button class="cb-arrow-btn cb-arrow-btn--next" type="button" data-cb-next aria-label="Next services"><?php echo caveback_icon( 'arrow-right' ); ?></button></div>
+<p role="status" style="margin:18px 0 0;display:flex;align-items:center;gap:10px;font-size:15px;color:#C3CBBF"><span style="width:8px;height:8px;border-radius:50%;background:#D6F25B;flex-shrink:0"></span><span id="svc-summary">No services selected yet.</span></p>
 </div>
-</div>
-<!-- /wp:html -->
-</div>
-<!-- /wp:group -->
 </section>
-<!-- /wp:group -->
+<!-- /wp:html -->

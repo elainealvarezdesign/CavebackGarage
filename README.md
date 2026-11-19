@@ -1,7 +1,7 @@
 # Caveback Garage Co. — WordPress one-page prototype
 
-Live prototype of the Caveback Garage Co. one-page website (dark theme), built as a
-child theme of [Home Services Blocks](https://wordpress.org/themes/home-services-blocks/).
+Live prototype of the Caveback Garage Co. one-page website (dark theme, v2 design: bento hero,
+lime accent, Inter + Instrument Serif italic), built as a child theme of [Home Services Blocks](https://wordpress.org/themes/home-services-blocks/).
 
 ## Open the live prototype
 
@@ -26,9 +26,9 @@ To refresh it after changing the theme: run WordPress locally with the theme act
 |---|---|
 | `blueprint.json` | WordPress Playground recipe that builds the prototype |
 | `caveback/` | The child theme (copy this folder to `wp-content/themes/` on any WordPress site) |
-| `caveback/theme.json` | Brand colours (Cave Charcoal, Utility Olive, Concrete Grey, Light Concrete) and Inter |
-| `caveback/style.css` | All one-page styles, as `--cb-*` tokens at the top |
-| `caveback/patterns/` | One block pattern per section: header, hero, why-caveback, services, how-it-works, our-work, catalog, who-we-help, quote, faq, footer |
+| `caveback/theme.json` | Colours (Cave Charcoal #19252C and its tones, olive #2A3A23, lime #D6F25B, Light Concrete #E2E5E1) and fonts (Inter, Instrument Serif) |
+| `caveback/style.css` | All one-page styles, including the responsive rules |
+| `caveback/patterns/` | One pattern per section (header, hero, why-caveback, services, how-it-works, our-work, catalog, who-we-help, quote, faq, footer); each is a Custom HTML block |
 | `caveback/templates/front-page.html` | The one-page layout (stacks the patterns) |
 | `caveback/assets/js/caveback.js` | Sliders, before/after, "Add to quote" selection, 2-step quote form |
 | `site/` | Static export of the front page, published by Netlify |

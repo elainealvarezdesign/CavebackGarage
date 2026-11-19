@@ -9,25 +9,111 @@
 		},
 		"color": {
 			"palette": [
-				{ "slug": "cave-charcoal", "name": "Cave Charcoal", "color": "#19252C" },
-				{ "slug": "utility-olive", "name": "Utility Olive", "color": "#566634" },
-				{ "slug": "concrete-grey", "name": "Concrete Grey", "color": "#767F70" },
-				{ "slug": "light-concrete", "name": "Light Concrete", "color": "#E2E5E1" },
-				{ "slug": "olive-light", "name": "Olive Light (text on charcoal)", "color": "#B5C68E" },
-				{ "slug": "charcoal-band", "name": "Charcoal Band", "color": "#223139" },
-				{ "slug": "charcoal-surface", "name": "Charcoal Surface", "color": "#283A44" },
-				{ "slug": "muted", "name": "Muted Text", "color": "#C8CFC4" },
-				{ "slug": "white", "name": "White", "color": "#FFFFFF" },
-				{ "slug": "base", "name": "Base", "color": "#19252C" },
-				{ "slug": "primary", "name": "Primary", "color": "#566634" },
-				{ "slug": "primary-light", "name": "Primary Light", "color": "#B5C68E" },
-				{ "slug": "body-text", "name": "Body Text", "color": "#F2F4F0" },
-				{ "slug": "heading", "name": "Headings", "color": "#FFFFFF" },
-				{ "slug": "section-bg", "name": "Section Background", "color": "#223139" },
-				{ "slug": "top-bar", "name": "Top Bar", "color": "#121B20" },
-				{ "slug": "background", "name": "Background", "color": "#19252C" },
-				{ "slug": "foreground", "name": "Foreground", "color": "#F2F4F0" },
-				{ "slug": "border-color", "name": "Border Color", "color": "#3E515C" }
+				{
+					"slug": "cave-charcoal",
+					"name": "Cave Charcoal",
+					"color": "#19252C"
+				},
+				{
+					"slug": "charcoal-deep",
+					"name": "Charcoal Deep",
+					"color": "#141F25"
+				},
+				{
+					"slug": "charcoal-surface",
+					"name": "Charcoal Surface",
+					"color": "#213039"
+				},
+				{
+					"slug": "charcoal-raised",
+					"name": "Charcoal Raised",
+					"color": "#283A44"
+				},
+				{
+					"slug": "olive-dark",
+					"name": "Olive Dark",
+					"color": "#2A3A23"
+				},
+				{
+					"slug": "utility-olive",
+					"name": "Utility Olive",
+					"color": "#566634"
+				},
+				{
+					"slug": "lime",
+					"name": "Lime",
+					"color": "#D6F25B"
+				},
+				{
+					"slug": "light-concrete",
+					"name": "Light Concrete",
+					"color": "#E2E5E1"
+				},
+				{
+					"slug": "concrete-grey",
+					"name": "Concrete Grey",
+					"color": "#767F70"
+				},
+				{
+					"slug": "muted",
+					"name": "Muted Text",
+					"color": "#C3CBBF"
+				},
+				{
+					"slug": "white",
+					"name": "White",
+					"color": "#FFFFFF"
+				},
+				{
+					"slug": "base",
+					"name": "Base",
+					"color": "#19252C"
+				},
+				{
+					"slug": "primary",
+					"name": "Primary",
+					"color": "#D6F25B"
+				},
+				{
+					"slug": "primary-light",
+					"name": "Primary Light",
+					"color": "#E4F88A"
+				},
+				{
+					"slug": "body-text",
+					"name": "Body Text",
+					"color": "#F2F4F0"
+				},
+				{
+					"slug": "heading",
+					"name": "Headings",
+					"color": "#FFFFFF"
+				},
+				{
+					"slug": "section-bg",
+					"name": "Section Background",
+					"color": "#141F25"
+				},
+				{
+					"slug": "top-bar",
+					"name": "Top Bar",
+					"color": "#111A1F"
+				},
+				{
+					"slug": "background",
+					"name": "Background",
+					"color": "#19252C"
+				},
+				{
+					"slug": "foreground",
+					"name": "Foreground",
+					"color": "#F2F4F0"
+				},
+				{
+					"slug": "border-color",
+					"name": "Border Color",
+					"color": "#2E404A"
+				}
 			]
 		},
 		"typography": {
@@ -36,6 +122,11 @@
 					"slug": "inter",
 					"name": "Inter",
 					"fontFamily": "\"Inter\", system-ui, -apple-system, \"Segoe UI\", sans-serif"
+				},
+				{
+					"slug": "instrument-serif",
+					"name": "Instrument Serif",
+					"fontFamily": "\"Instrument Serif\", Georgia, serif"
 				}
 			]
 		}
@@ -52,7 +143,12 @@
 		},
 		"spacing": {
 			"blockGap": "0px",
-			"padding": { "top": "0px", "right": "0px", "bottom": "0px", "left": "0px" }
+			"padding": {
+				"top": "0px",
+				"right": "0px",
+				"bottom": "0px",
+				"left": "0px"
+			}
 		},
 		"elements": {
 			"heading": {
@@ -61,24 +157,44 @@
 					"fontWeight": "800",
 					"lineHeight": "1.1"
 				},
-				"color": { "text": "var(--wp--preset--color--heading)" }
+				"color": {
+					"text": "var(--wp--preset--color--heading)"
+				}
 			},
 			"link": {
-				"color": { "text": "var(--wp--preset--color--olive-light)" },
-				":hover": { "color": { "text": "var(--wp--preset--color--light-concrete)" } }
+				"color": {
+					"text": "var(--wp--preset--color--lime)"
+				},
+				":hover": {
+					"color": {
+						"text": "var(--wp--preset--color--primary-light)"
+					}
+				}
 			},
 			"button": {
 				"color": {
-					"background": "var(--wp--preset--color--utility-olive)",
-					"text": "var(--wp--preset--color--white)"
+					"background": "var(--wp--preset--color--lime)",
+					"text": "var(--wp--preset--color--cave-charcoal)"
 				},
-				"border": { "radius": "8px" },
-				"typography": { "fontWeight": "700" }
+				"border": {
+					"radius": "8px"
+				},
+				"typography": {
+					"fontWeight": "700"
+				}
 			}
 		}
 	},
 	"templateParts": [
-		{ "name": "header", "area": "header", "title": "Header" },
-		{ "name": "footer", "area": "footer", "title": "Footer" }
+		{
+			"name": "header",
+			"area": "header",
+			"title": "Header"
+		},
+		{
+			"name": "footer",
+			"area": "footer",
+			"title": "Footer"
+		}
 	]
 }

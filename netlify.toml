@@ -13,3 +13,9 @@
   for = "/wp-content/*"
   [headers.values]
     Cache-Control = "public, max-age=3600"
+
+# The v2 preview now lives at the root; keep old /v2/ links working.
+[[redirects]]
+  from = "/v2/*"
+  to = "/"
+  status = 301
