@@ -99,7 +99,7 @@ assert '{{' not in body and '<sc-' not in body, re.findall(r'\{\{[^}]*\}\}|<sc-[
 
 extra_css = """
 [hidden]{display:none !important}
-.svc-add{background:#121A1F;color:#FFFFFF}
+.svc-add{background:#19252C;color:#FFFFFF}
 .svc-add[aria-pressed="true"]{background:#D6F25B;color:#19252C}
 .chip{border:1.5px solid #C9CEC4;background:#FFFFFF;color:#19252C}
 .chip[aria-pressed="true"]{background:#566634;border-color:#566634;color:#FFFFFF}
